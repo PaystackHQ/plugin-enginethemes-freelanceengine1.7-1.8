@@ -160,8 +160,7 @@ function ae_paystack_setup_payment($response, $paymentType, $order) {
 		$txnref	= $new_id . '_' .time();
 
 		et_write_session( 'order_id', $new_id );
-		et_write_session( 'ad_id', $new_id );
-
+		
         $return_url = et_get_page_link('process-payment', array(
                         'paymentType' => 'paystack',
                         // 'return' => "1",
