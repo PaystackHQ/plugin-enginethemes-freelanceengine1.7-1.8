@@ -224,7 +224,7 @@ function ae_paystack_process_payment($payment_return, $data) {
 		if ($mode == 'test') {
 		$key = $paystack['tsk'];
 	}else{
-		$key = $paystack['tsk'];
+		$key = $paystack['lsk'];
 	}
     $paymenttype = $data['payment_type'];
     $order = $data['order'];
