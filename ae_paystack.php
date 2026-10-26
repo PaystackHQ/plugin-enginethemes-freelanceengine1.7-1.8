@@ -119,7 +119,7 @@ function ae_paystack_add($gateways){
 add_action('after_payment_list', 'ae_paystack_render_button');
 function ae_paystack_render_button() {
 	$paystack = ae_get_option('paystack');
-	if($paystack['mode'] ==  'disable')
+	if(isset($paystack['mode']) && $paystack['mode'] ==  'disable')
 		return false;
 ?>
 	<li>
@@ -140,11 +140,11 @@ function ae_paystack_setup_payment($response, $paymentType, $order) {
     
     if ($paymentType == 'PAYSTACK') {
         $paystack = ae_get_option('paystack');
-		$mode = $paystack['mode'];
+		$mode = $paystack['mode'] ?? null;
  		if ($mode == 'test') {
-			$key = $paystack['tsk'];
+			$key = $paystack['tsk'] ?? '';
 		}else{
-			$key = $paystack['lsk'];
+			$key = $paystack['lsk'] ?? '';
 		}
         //get info order
   //       $order = new AE_Order($order_id);
@@ -154,7 +154,7 @@ function ae_paystack_setup_payment($response, $paymentType, $order) {
         $amount = $order_pay['total'];
         $currency = $order_pay['currencyCodeType'];
         $pakage_info = array_pop($order_pay['products']);
-        $pakage_name = $pakage_info['NAME'];
+        $pakage_name = $pakage_info['NAME'] ?? null;
         $paystack_info = ae_get_option('paystack');
         $new_id = $order_pay['ID'];
 		$txnref	= $new_id . '_' .time();
@@ -191,7 +191,7 @@ function ae_paystack_setup_payment($response, $paymentType, $order) {
 		$request = wp_remote_post( $paystack_url, $args );
 		if( ! is_wp_error( $request )) {
 			$paystack_response = json_decode(wp_remote_retrieve_body($request));
-			$url	= $paystack_response->data->authorization_url;
+			$url	= $paystack_response->data->authorization_url ?? null;
 			$order->update_order();
 			$response = array(
                 'success' => true,
@@ -219,11 +219,11 @@ function ae_paystack_setup_payment($response, $paymentType, $order) {
 add_filter('ae_process_payment', 'ae_paystack_process_payment', 10 ,2 );
 function ae_paystack_process_payment($payment_return, $data) {
 	$paystack = ae_get_option('paystack');
-	$mode = $paystack['mode'];
+	$mode = $paystack['mode'] ?? null;
 		if ($mode == 'test') {
-		$key = $paystack['tsk'];
+		$key = $paystack['tsk'] ?? '';
 	}else{
-		$key = $paystack['lsk'];
+		$key = $paystack['lsk'] ?? '';
 	}
     $paymenttype = $data['payment_type'];
     $order = $data['order'];
@@ -254,7 +254,7 @@ function ae_paystack_process_payment($payment_return, $data) {
 
             	$paystack_response = json_decode( wp_remote_retrieve_body( $request ) );
 
-				if ( 'success' == $paystack_response->data->status ) {
+				if ( 'success' == ( $paystack_response->data->status ?? null ) ) {
 
 					
 					$order_details 	= explode( '_', $paystack_response->data->reference );
