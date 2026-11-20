@@ -7,7 +7,7 @@ verifies the transaction when they return to the site.
 
 ## Requirements
 
-- PHP with the 21 Oct 2026 security fixes for critical remote code execution flaws (GHSA-w8hw-w9fx-j79w, GHSA-6wmf-4rv5-p3rp; [php.net advisory](https://www.php.net/releases/8_2_35.php)): **8.2.35, 8.3.36, 8.4.27, 8.5.12 or later**. PHP 8.1 and older no longer receive security fixes.
+- PHP with the 19 Nov 2026 security fixes, rated up to critical by php.net and including remote code execution flaws in sessions, PHP-FPM and the engine core (for example GHSA-658j-r8rw-q6mx, GHSA-fm2m-fjf5-v3cp, GHSA-qc49-hpvq-g2w6; [php.net announcement](https://www.php.net/archive/2026.php#2026-11-19-1), [ChangeLog](https://www.php.net/ChangeLog-8.php)): **8.2.36, 8.3.37, 8.4.28, 8.5.13, 8.6.0 or later**. These releases also include the 21 Oct 2026 fixes. PHP 8.1 and older no longer receive security fixes.
 - FreelanceEngine theme 1.7 or 1.8 (a commercial theme from EngineThemes)
 - WordPress version supported by your FreelanceEngine release
 
